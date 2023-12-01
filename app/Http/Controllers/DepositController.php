@@ -25,7 +25,7 @@ class DepositController extends Controller
    }
 
    public function markAsRead(){
-        Auth::user()->unreadNotifications->markAsRead();
-        return redirect()->back();
+     $notifications  = Auth::user()->unreadNotifications->markAsRead();
+        return $this->sendResponse($notifications, 'Notifications marked as read');
    }
 }

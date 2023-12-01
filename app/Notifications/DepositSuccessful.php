@@ -27,7 +27,7 @@ class DepositSuccessful extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['mail','database'];
     }
 
     /**
@@ -49,7 +49,9 @@ class DepositSuccessful extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'data' =>'Congratulations! You have earned '.$this->badge_name.' badge',
+            'data' => $this->badge_name,
+            'message' => 'Badge earned successfully',
+            'type' => 'success',
         ];
     }
 }
