@@ -20,12 +20,14 @@ class DepositController extends Controller
             'user_id' => Auth::user()->id,
             'badge_name'=> $request->badge_name
         ]);
-        User::find(Auth::user()->id)->notify(new DepositSuccessful($deposit->badge_name));
+        $delay = now()->addMinutes(10);
+        User::find(Auth::user()->id)->notify((new DepositSuccessful($deposit->badge_name))->delay($delay));
         return redirect()->back()->with('success', 'Badge earned successfully');
    }
 
    public function markAsRead(){
      $notifications  = Auth::user()->unreadNotifications->markAsRead();
+
         return $this->sendResponse($notifications, 'Notifications marked as read');
    }
 }

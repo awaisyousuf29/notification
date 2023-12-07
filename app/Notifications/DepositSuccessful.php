@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class DepositSuccessful extends Notification
+class DepositSuccessful extends Notification  implements ShouldQueue
 {
     use Queueable;
 
@@ -18,6 +18,7 @@ class DepositSuccessful extends Notification
     public function __construct($badge_name)
     {
         $this->badge_name=$badge_name;
+
     }
 
     /**

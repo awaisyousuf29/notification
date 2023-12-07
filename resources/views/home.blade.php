@@ -5,16 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header" v-show="toggled">My Mail Tempate</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                    <div id="editor" style="height: 400px; width:1920;"></div>
                 </div>
             </div>
         </div>
@@ -45,4 +39,26 @@
         </div>
     </div>
 </div>
+<script>
+    // Pass the Blade content from the controller to JavaScript
+    var bladeContent = {!! json_encode($bladeContent) !!};
+
+    // Initialize the Ace editor
+    var editor = ace.edit("editor");
+
+    // Set the content of the editor
+    editor.setValue(bladeContent);
+
+    // Set the language mode for Blade syntax
+    editor.session.setMode("ace/mode/html_blade");
+
+    // Set editor options
+    editor.setOptions({
+        fontSize: "14px",
+        showPrintMargin: false,
+        wrap: true, // Enable line wrapping
+        // Add more options as needed
+    });
+</script>
+
 @endsection
